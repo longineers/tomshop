@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TomShopTest {
     @Test
-    public void returnsNoResultsWhenNoProductNameMatchSearch() throws Exception {
+    public void returnsNoResultsWhenNoProductNameMatchesSearch() throws Exception {
         // Assemble
         TomShop tomShop = new TomShop();
 
@@ -32,7 +32,7 @@ public class TomShopTest {
     }
 
     @Test
-    public void itCanFindAnExistingAmongManyProducts() {
+    public void itCanFindAnExistingProductAmongManyProducts() {
         // Assemble
         TomShop tomShop = new TomShop();
         tomShop.add(new Product("Rabbit Treat"));
