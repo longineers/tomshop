@@ -8,21 +8,29 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TomShopTest {
-
-    TomShop tomShop;
+    private TomShop tomShop;
+    private Product rabbitTreat;
+    private Product dogTreat;
+    private Product catTreat;
+    private Product catFood;
 
     @Before
     public void setUp() {
+        // Assemble
         this.tomShop = new TomShop();
-        this.tomShop.add(new Product("Rabbit Treat"));
-        this.tomShop.add(new Product("Dog Treat"));
-        this.tomShop.add(new Product("Cat Treat"));
-        this.tomShop.add(new Product("Cat Food"));
+        rabbitTreat = new Product("Rabbit Treat", 10.80);
+        this.tomShop.add(rabbitTreat);
+        dogTreat = new Product("Dog Treat", 5.99);
+        this.tomShop.add(dogTreat);
+        catTreat = new Product("Cat Treat", 3.49);
+        this.tomShop.add(catTreat);
+        catFood = new Product("Cat Food", 12.99);
+        this.tomShop.add(catFood);
     }
 
 
     @Test
-    public void returnsNoResultsWhenNoProductNameMatchesSearch() throws Exception {
+    public void returnsNoResultsWhenNoProductNameMatchesSearch() {
         // Assemble
 
         // Act
@@ -37,7 +45,7 @@ public class TomShopTest {
         // Assemble
 
         // Act
-        tomShop.add(new Product("A jolly product"));
+        tomShop.add(new Product("A jolly product", 9));
 
         // Assert
         assertThat(tomShop.find("A jolly product").size(), is(1));
@@ -52,8 +60,7 @@ public class TomShopTest {
 
         // Assert
         assertThat(searchResults.size(), is(1));
-        String productName = searchResults.getFirst().getProductName();
-        assertThat(productName, is("Dog Treat"));
+        assertThat(searchResults.getFirst(), is(dogTreat));
     }
 
     @Test
@@ -65,9 +72,9 @@ public class TomShopTest {
 
         // Assert
         assertThat(searchResults.size(), is(3));
-        assertThat(searchResults.get(0).getProductName(), is("Rabbit Treat"));
-        assertThat(searchResults.get(1).getProductName(), is("Dog Treat"));
-        assertThat(searchResults.get(2).getProductName(), is("Cat Treat"));
+        assertThat(searchResults.get(0), is(rabbitTreat));
+        assertThat(searchResults.get(1), is(dogTreat));
+        assertThat(searchResults.get(2), is(catTreat));
     }
 
     @Test
@@ -79,10 +86,10 @@ public class TomShopTest {
 
         // Assert
         assertThat(searchResults.size(), is(4));
-        assertThat(searchResults.get(0).getProductName(), is("Rabbit Treat"));
-        assertThat(searchResults.get(1).getProductName(), is("Dog Treat"));
-        assertThat(searchResults.get(2).getProductName(), is("Cat Treat"));
-        assertThat(searchResults.get(3).getProductName(), is("Cat Food"));
+        assertThat(searchResults.get(0), is(rabbitTreat));
+        assertThat(searchResults.get(1), is(dogTreat));
+        assertThat(searchResults.get(2), is(catTreat));
+        assertThat(searchResults.get(3), is(catFood));
     }
 
     @Test
@@ -94,10 +101,10 @@ public class TomShopTest {
 
         // Assert
         assertThat(searchResults.size(), is(4));
-        assertThat(searchResults.get(0).getProductName(), is("Rabbit Treat"));
-        assertThat(searchResults.get(1).getProductName(), is("Dog Treat"));
-        assertThat(searchResults.get(2).getProductName(), is("Cat Treat"));
-        assertThat(searchResults.get(3).getProductName(), is("Cat Food"));
+        assertThat(searchResults.get(0), is(rabbitTreat));
+        assertThat(searchResults.get(1), is(dogTreat));
+        assertThat(searchResults.get(2), is(catTreat));
+        assertThat(searchResults.get(3), is(catFood));
     }
 
     @Test
@@ -109,6 +116,32 @@ public class TomShopTest {
 
         // Assert
         assertThat(searchResults.size(), is(1));
-        assertThat(searchResults.getFirst().getProductName(), is("Dog Treat"));
+        assertThat(searchResults.getFirst(), is(dogTreat));
+    }
+
+    @Test
+    public void itCanFindByPrice() {
+        // Assemble
+
+        // Act
+        List<Product> searchResults = tomShop.find(3.49);
+
+        // Assert
+        assertThat(searchResults.size(), is(1));
+        assertThat(searchResults.getFirst(), is(catTreat));
+    }
+
+    @Test
+    public void itCanFindByPriceWithInARange() {
+        // Assemble
+        double minPrice = 1.00;
+        double maxPrice = 11.00;
+
+        // Act
+        List<Product> searchResults = tomShop.find(minPrice, maxPrice);
+
+        // Assert
+        assertThat(searchResults.size(), is(3));
+        assertThat(searchResults.getFirst(), is(rabbitTreat));
     }
 }

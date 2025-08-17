@@ -1,13 +1,19 @@
 package model;
 
 public class Product {
-    String productName;
+    private final String productName;
+    private final double price;
 
-    public Product(String productName) {
+    public Product(String productName, double price) {
         this.productName = productName;
+        this.price = price;
     }
 
-    public String getProductName() {
+    public String productName() {
         return this.productName;
+    }
+
+    public double price() {
+        return this.price;
     }
 }

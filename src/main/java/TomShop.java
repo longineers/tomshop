@@ -14,7 +14,7 @@ public class TomShop {
         List<Product> matchedProducts = new LinkedList<Product>();
 
         this.products.forEach((product -> {
-            if (product.getProductName().toLowerCase().contains(productName.toLowerCase())) {
+            if (product.productName().toLowerCase().contains(productName.toLowerCase())) {
                 matchedProducts.add(product);
             }
         }));
@@ -24,5 +24,29 @@ public class TomShop {
 
     public void add(Product product) {
         this.products.add(product);
+    }
+
+    public List<Product> find(double price) {
+        List<Product> matchedProducts = new LinkedList<Product>();
+
+        this.products.forEach((product -> {
+            if (price == product.price()) {
+                matchedProducts.add(product);
+            }
+        }));
+
+        return matchedProducts;
+    }
+
+    public List<Product> find(double minPrice, double maxPrice) {
+        List<Product> matchedProducts = new LinkedList<Product>();
+
+        this.products.forEach((product -> {
+            if (product.price() >= minPrice && product.price() <= maxPrice) {
+                matchedProducts.add(product);
+            }
+        }));
+
+        return matchedProducts;
     }
 }
