@@ -47,4 +47,80 @@ public class TomShopTest {
         String productName = searchResults.getFirst().getProductName();
         assertThat(productName, is("Dog Treat"));
     }
+
+    @Test
+    public void itCanFindProductsWithPartialProductNameMatches() {
+        // Assemble
+        TomShop tomShop = new TomShop();
+        tomShop.add(new Product("Rabbit Treat"));
+        tomShop.add(new Product("Dog Treat"));
+        tomShop.add(new Product("Cat Treat"));
+        tomShop.add(new Product("Cat Food"));
+
+        // Act
+        List<Product> searchResults = tomShop.find("Treat");
+
+        // Assert
+        assertThat(searchResults.size(), is(3));
+        assertThat(searchResults.get(0).getProductName(), is("Rabbit Treat"));
+        assertThat(searchResults.get(1).getProductName(), is("Dog Treat"));
+        assertThat(searchResults.get(2).getProductName(), is("Cat Treat"));
+    }
+
+    @Test
+    public void itCanFindProductsWithEmptySearchString() {
+        // Assemble
+        TomShop tomShop = new TomShop();
+        tomShop.add(new Product("Rabbit Treat"));
+        tomShop.add(new Product("Dog Treat"));
+        tomShop.add(new Product("Cat Treat"));
+        tomShop.add(new Product("Cat Food"));
+
+        // Act
+        List<Product> searchResults = tomShop.find("");
+
+        // Assert
+        assertThat(searchResults.size(), is(4));
+        assertThat(searchResults.get(0).getProductName(), is("Rabbit Treat"));
+        assertThat(searchResults.get(1).getProductName(), is("Dog Treat"));
+        assertThat(searchResults.get(2).getProductName(), is("Cat Treat"));
+        assertThat(searchResults.get(3).getProductName(), is("Cat Food"));
+    }
+
+    @Test
+    public void itCanFindProductsWithNullSearchString() {
+        // Assemble
+        TomShop tomShop = new TomShop();
+        tomShop.add(new Product("Rabbit Treat"));
+        tomShop.add(new Product("Dog Treat"));
+        tomShop.add(new Product("Cat Treat"));
+        tomShop.add(new Product("Cat Food"));
+
+        // Act
+        List<Product> searchResults = tomShop.find(null);
+
+        // Assert
+        assertThat(searchResults.size(), is(4));
+        assertThat(searchResults.get(0).getProductName(), is("Rabbit Treat"));
+        assertThat(searchResults.get(1).getProductName(), is("Dog Treat"));
+        assertThat(searchResults.get(2).getProductName(), is("Cat Treat"));
+        assertThat(searchResults.get(3).getProductName(), is("Cat Food"));
+    }
+
+    @Test
+    public void itCanFindProductsRegardlessOfCase() {
+        // Assemble
+        TomShop tomShop = new TomShop();
+        tomShop.add(new Product("Rabbit Treat"));
+        tomShop.add(new Product("Dog Treat"));
+        tomShop.add(new Product("Cat Treat"));
+        tomShop.add(new Product("Cat Food"));
+
+        // Act
+        List<Product> searchResults = tomShop.find("dog treat");
+
+        // Assert
+        assertThat(searchResults.size(), is(1));
+        assertThat(searchResults.getFirst().getProductName(), is("Dog Treat"));
+    }
 }
