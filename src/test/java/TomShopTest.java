@@ -1,4 +1,5 @@
 import model.Product;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -7,10 +8,22 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TomShopTest {
+
+    TomShop tomShop;
+
+    @Before
+    public void setUp() {
+        this.tomShop = new TomShop();
+        this.tomShop.add(new Product("Rabbit Treat"));
+        this.tomShop.add(new Product("Dog Treat"));
+        this.tomShop.add(new Product("Cat Treat"));
+        this.tomShop.add(new Product("Cat Food"));
+    }
+
+
     @Test
     public void returnsNoResultsWhenNoProductNameMatchesSearch() throws Exception {
         // Assemble
-        TomShop tomShop = new TomShop();
 
         // Act
         List<Product> products = tomShop.find("non-existence-product-name");
@@ -22,7 +35,6 @@ public class TomShopTest {
     @Test
     public void itCanAddAProduct() {
         // Assemble
-        TomShop tomShop = new TomShop();
 
         // Act
         tomShop.add(new Product("A jolly product"));
@@ -34,10 +46,6 @@ public class TomShopTest {
     @Test
     public void itCanFindAnExistingProductAmongManyProducts() {
         // Assemble
-        TomShop tomShop = new TomShop();
-        tomShop.add(new Product("Rabbit Treat"));
-        tomShop.add(new Product("Dog Treat"));
-        tomShop.add(new Product("Cat Treat"));
 
         // Act
         List<Product> searchResults = tomShop.find("Dog Treat");
@@ -51,11 +59,6 @@ public class TomShopTest {
     @Test
     public void itCanFindProductsWithPartialProductNameMatches() {
         // Assemble
-        TomShop tomShop = new TomShop();
-        tomShop.add(new Product("Rabbit Treat"));
-        tomShop.add(new Product("Dog Treat"));
-        tomShop.add(new Product("Cat Treat"));
-        tomShop.add(new Product("Cat Food"));
 
         // Act
         List<Product> searchResults = tomShop.find("Treat");
@@ -70,11 +73,6 @@ public class TomShopTest {
     @Test
     public void itCanFindProductsWithEmptySearchString() {
         // Assemble
-        TomShop tomShop = new TomShop();
-        tomShop.add(new Product("Rabbit Treat"));
-        tomShop.add(new Product("Dog Treat"));
-        tomShop.add(new Product("Cat Treat"));
-        tomShop.add(new Product("Cat Food"));
 
         // Act
         List<Product> searchResults = tomShop.find("");
@@ -90,11 +88,6 @@ public class TomShopTest {
     @Test
     public void itCanFindProductsWithNullSearchString() {
         // Assemble
-        TomShop tomShop = new TomShop();
-        tomShop.add(new Product("Rabbit Treat"));
-        tomShop.add(new Product("Dog Treat"));
-        tomShop.add(new Product("Cat Treat"));
-        tomShop.add(new Product("Cat Food"));
 
         // Act
         List<Product> searchResults = tomShop.find(null);
@@ -110,11 +103,6 @@ public class TomShopTest {
     @Test
     public void itCanFindProductsRegardlessOfCase() {
         // Assemble
-        TomShop tomShop = new TomShop();
-        tomShop.add(new Product("Rabbit Treat"));
-        tomShop.add(new Product("Dog Treat"));
-        tomShop.add(new Product("Cat Treat"));
-        tomShop.add(new Product("Cat Food"));
 
         // Act
         List<Product> searchResults = tomShop.find("dog treat");
