@@ -1,11 +1,11 @@
 import model.Product;
-import org.junit.Before;
-import org.junit.Test;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class TomShopTest {
     private TomShop tomShop;
@@ -14,7 +14,7 @@ public class TomShopTest {
     private Product catTreat;
     private Product catFood;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // Assemble
         this.tomShop = new TomShop();
@@ -37,7 +37,7 @@ public class TomShopTest {
         List<Product> products = tomShop.find("non-existence-product-name");
 
         // Assert
-        assertThat(products.size(), is(0));
+        assertEquals(0, products.size());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class TomShopTest {
         tomShop.add(new Product("A jolly product", 9));
 
         // Assert
-        assertThat(tomShop.find("A jolly product").size(), is(1));
+        assertEquals(1, tomShop.find("A jolly product").size());
     }
 
     @Test
@@ -59,8 +59,8 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find("Dog Treat");
 
         // Assert
-        assertThat(searchResults.size(), is(1));
-        assertThat(searchResults.getFirst(), is(dogTreat));
+        assertEquals(1, searchResults.size(), 1);
+        assertSame(searchResults.getFirst(), dogTreat);
     }
 
     @Test
@@ -71,10 +71,10 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find("Treat");
 
         // Assert
-        assertThat(searchResults.size(), is(3));
-        assertThat(searchResults.get(0), is(rabbitTreat));
-        assertThat(searchResults.get(1), is(dogTreat));
-        assertThat(searchResults.get(2), is(catTreat));
+        assertEquals(3, searchResults.size());
+        assertSame(rabbitTreat, searchResults.get(0));
+        assertSame(dogTreat, searchResults.get(1));
+        assertSame(catTreat, searchResults.get(2));
     }
 
     @Test
@@ -85,11 +85,11 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find("");
 
         // Assert
-        assertThat(searchResults.size(), is(4));
-        assertThat(searchResults.get(0), is(rabbitTreat));
-        assertThat(searchResults.get(1), is(dogTreat));
-        assertThat(searchResults.get(2), is(catTreat));
-        assertThat(searchResults.get(3), is(catFood));
+        assertEquals(4, searchResults.size());
+        assertSame(rabbitTreat, searchResults.get(0));
+        assertSame(dogTreat, searchResults.get(1));
+        assertSame(catTreat, searchResults.get(2));
+        assertSame(catFood, searchResults.get(3));
     }
 
     @Test
@@ -100,11 +100,11 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find(null);
 
         // Assert
-        assertThat(searchResults.size(), is(4));
-        assertThat(searchResults.get(0), is(rabbitTreat));
-        assertThat(searchResults.get(1), is(dogTreat));
-        assertThat(searchResults.get(2), is(catTreat));
-        assertThat(searchResults.get(3), is(catFood));
+        assertEquals(4, searchResults.size());
+        assertSame(rabbitTreat, searchResults.get(0));
+        assertSame(dogTreat, searchResults.get(1));
+        assertSame(catTreat, searchResults.get(2));
+        assertSame(catFood, searchResults.get(3));
     }
 
     @Test
@@ -115,8 +115,8 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find("dog treat");
 
         // Assert
-        assertThat(searchResults.size(), is(1));
-        assertThat(searchResults.getFirst(), is(dogTreat));
+        assertEquals(1, searchResults.size());
+        assertSame(dogTreat, searchResults.getFirst());
     }
 
     @Test
@@ -127,8 +127,8 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find(3.49);
 
         // Assert
-        assertThat(searchResults.size(), is(1));
-        assertThat(searchResults.getFirst(), is(catTreat));
+        assertEquals(1, searchResults.size());
+        assertSame(catTreat, searchResults.getFirst());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class TomShopTest {
         List<Product> searchResults = tomShop.find(minPrice, maxPrice);
 
         // Assert
-        assertThat(searchResults.size(), is(3));
-        assertThat(searchResults.getFirst(), is(rabbitTreat));
+        assertEquals(3, searchResults.size());
+        assertSame(rabbitTreat, searchResults.getFirst());
     }
 }

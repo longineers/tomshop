@@ -1,9 +1,8 @@
 package model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductTest {
 
@@ -16,7 +15,7 @@ public class ProductTest {
         Product product = new Product(productName, 9.99);
 
         // Assert
-        assertThat(product.productName(), is(productName));
+        assertEquals(productName, product.productName());
     }
 
     @Test
@@ -29,7 +28,7 @@ public class ProductTest {
         Product product = new Product(productName, price);
 
         // Assert
-        assertThat(product.productName(), is(productName));
-        assertThat(product.price(), is(price));
+        assertEquals(productName, product.productName());
+        assertEquals(price, product.price());
     }
 }

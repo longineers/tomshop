@@ -62,3 +62,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+.idea/codeInsightSettings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
