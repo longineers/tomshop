@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProductTest {
 
@@ -30,5 +31,17 @@ public class ProductTest {
         // Assert
         assertEquals(productName, product.productName());
         assertEquals(price, product.price());
+    }
+
+    @Test
+    public void itWillThrowAnIllegalArgumentExceptionWhenProductNameAndPriceAreMissing() throws IllegalArgumentException {
+        // Assemble
+        String productName = null;
+        double price = 0;
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Product(productName, price);
+        });
     }
 }
